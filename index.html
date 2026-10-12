@@ -60,7 +60,7 @@ textarea{width:100%;margin-top:10px;font:15px var(--mw-font-body);border:1px sol
 .arrow{width:44px;height:44px;border:2px solid var(--mw-primary);background:#fff;border-radius:0;font-size:18px;cursor:pointer}
 .dots{display:flex;gap:6px}.dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--mw-primary);background:#fff;padding:0;cursor:pointer}
 .dot.on{background:var(--mw-primary)}
-@media (hover:none){.arrow{display:none}}
+@media (hover:none) and (pointer:coarse){.arrow{display:none}}
 .share{padding:8px 0 20px}.share .btn{width:100%;padding:16px}.status{text-align:center;font-size:13px;color:var(--mw-muted-text);min-height:20px;margin-top:8px}
 .src{font-size:12px;color:var(--mw-muted-text);line-height:1.5;border-top:1px solid var(--mw-border);padding-top:12px}
 footer{margin-top:24px;background:var(--mw-secondary);border-top:1px solid var(--mw-border);text-align:center;padding:22px 16px calc(22px + env(safe-area-inset-bottom))}
