@@ -1,0 +1,125 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light"><meta name="robots" content="noindex,nofollow">
+<title>Strategy Memo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600&family=Khand:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* Max Weberman brand tokens, extracted from maxweberman.com (2026-10-10) */
+:root {
+  --mw-background: #ffffff;
+  --mw-foreground: #0a0a0a;   /* body text */
+  --mw-primary: #171717;      /* buttons, borders */
+  --mw-primary-foreground: #fafafa;
+  --mw-secondary: #f5f5f5;    /* muted surfaces */
+  --mw-accent: #f5f5f5;
+  --mw-muted-text: #737373;
+  --mw-border: #e5e5e5;
+  --mw-dark-surface: #0a0a0a; /* dark sections / footer */
+  --mw-font-heading: "Khand", sans-serif;          /* Bold */
+  --mw-font-body: "Hind", system-ui, sans-serif;   /* Regular */
+  --mw-radius: 0.625rem;      /* cards ~0.75rem; primary buttons square */
+  --mw-tracking-label: 0.1em; /* uppercase button/label tracking */
+}
+
+/* Hover motion (Max, Oct 10, 2026) */
+:root { --mw-ease: cubic-bezier(.2,.8,.2,1); --mw-dur: 180ms; }
+.mw-hover { transition: transform var(--mw-dur) var(--mw-ease), box-shadow var(--mw-dur) var(--mw-ease), background-color var(--mw-dur) var(--mw-ease); }
+.mw-hover:hover, .mw-hover:focus-visible { transform: translateY(-1px) scale(1.03); box-shadow: 0 6px 18px rgba(10,10,10,.12); }
+.mw-hover:active { transform: scale(.98); }
+@media (prefers-reduced-motion: reduce) { .mw-hover, .mw-hover:hover { transition: none; transform: none; } }
+
+*{box-sizing:border-box}html,body{margin:0;background:#fff;color:var(--mw-foreground);font-family:var(--mw-font-body);-webkit-text-size-adjust:100%}
+body{overflow-x:hidden}
+h1,h2,h3{font-family:var(--mw-font-heading);font-weight:700;letter-spacing:-.01em;line-height:1.1;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding:16px 16px 0}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0 12px;border-bottom:1px solid var(--mw-border)}
+.brand{font-family:var(--mw-font-heading);font-weight:700;letter-spacing:.12em;font-size:15px}
+select{font:600 13px var(--mw-font-body);text-transform:uppercase;letter-spacing:.08em;border:2px solid var(--mw-primary);background:#fff;color:var(--mw-primary);padding:10px 12px;min-height:44px;border-radius:0;cursor:pointer}
+.intro{padding:16px 0 4px}.intro h1{font-size:clamp(28px,7vw,44px)}.intro p{color:var(--mw-muted-text);margin:6px 0 0;font-size:14px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:12px 0;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;font:600 12px var(--mw-font-body);text-transform:uppercase;letter-spacing:var(--mw-tracking-label);border:1px solid var(--mw-border);background:#fff;color:var(--mw-muted-text);padding:10px 12px;min-height:44px;border-radius:0;cursor:pointer}
+.tab.on{border-color:var(--mw-primary);color:var(--mw-primary);background:var(--mw-secondary)}
+.car{position:relative}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;gap:16px;align-items:flex-start}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:start;border:1px solid var(--mw-border);border-radius:.75rem;padding:20px;box-shadow:0 2px 10px rgba(10,10,10,.05);min-width:0}
+.slide h2{font-size:30px;margin-bottom:4px}.count{font-size:12px;letter-spacing:var(--mw-tracking-label);text-transform:uppercase;color:var(--mw-muted-text);margin-bottom:14px}
+.slide ul,.slide ol{margin:0;padding-left:20px}.slide li{margin:0 0 12px;line-height:1.5;font-size:16px}
+.slide p{line-height:1.5}
+.dec{list-style:none;padding:0!important}
+.card{border:1px solid var(--mw-border);border-radius:.75rem;padding:14px;margin:0 0 14px;background:#fff}
+.card .q{line-height:1.45;margin-bottom:10px}.card .q b{font-family:var(--mw-font-heading);font-size:18px;margin-right:4px}
+.picks{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font:600 12px var(--mw-font-body);text-transform:uppercase;letter-spacing:var(--mw-tracking-label);border:2px solid var(--mw-primary);background:transparent;color:var(--mw-primary);padding:12px 14px;min-height:44px;border-radius:0;cursor:pointer;flex:1 1 auto}
+.btn:hover{background:var(--mw-primary);color:var(--mw-primary-foreground)}
+.btn.on{background:var(--mw-primary);color:var(--mw-primary-foreground)}
+.btn.app.on{background:#1f7a3a;border-color:#1f7a3a}.btn.ask.on{background:#9a5b00;border-color:#9a5b00}
+textarea{width:100%;margin-top:10px;font:15px var(--mw-font-body);border:1px solid var(--mw-border);border-radius:.5rem;padding:10px;min-height:44px;resize:vertical}
+.nav{display:flex;align-items:center;justify-content:center;gap:14px;padding:14px 0}
+.arrow{width:44px;height:44px;border:2px solid var(--mw-primary);background:#fff;border-radius:0;font-size:18px;cursor:pointer}
+.dots{display:flex;gap:6px}.dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--mw-primary);background:#fff;padding:0;cursor:pointer}
+.dot.on{background:var(--mw-primary)}
+@media (hover:none){.arrow{display:none}}
+.share{padding:8px 0 20px}.share .btn{width:100%;padding:16px}.status{text-align:center;font-size:13px;color:var(--mw-muted-text);min-height:20px;margin-top:8px}
+.src{font-size:12px;color:var(--mw-muted-text);line-height:1.5;border-top:1px solid var(--mw-border);padding-top:12px}
+footer{margin-top:24px;background:var(--mw-secondary);border-top:1px solid var(--mw-border);text-align:center;padding:22px 16px calc(22px + env(safe-area-inset-bottom))}
+footer a{color:var(--mw-foreground);text-decoration:none;text-transform:uppercase;letter-spacing:var(--mw-tracking-label);font-size:12px;font-weight:600;border-bottom:1px solid rgba(10,10,10,.3);display:inline-block;padding:8px 0}
+@media (min-width:768px){.slide{padding:28px}.slide h2{font-size:38px}}
+</style></head><body>
+<div class="wrap">
+<header><div class="brand">MAX WEBERMAN</div><select id="pick" aria-label="Choose memo" class="mw-hover"></select></header>
+<div class="intro"><h1 id="title"></h1><p id="sub"></p></div>
+<div class="tabs" id="tabs"></div>
+<div class="car"><div class="track" id="track"></div>
+<div class="nav"><button class="arrow mw-hover" id="prev" aria-label="Previous">&#8592;</button><div class="dots" id="dots"></div><button class="arrow mw-hover" id="next" aria-label="Next">&#8594;</button></div></div>
+<div class="share"><button class="btn mw-hover" id="share">Share My Picks</button><div class="status" id="status"></div></div>
+<div class="src" id="src"></div>
+</div>
+<footer><a class="mw-hover" href="https://maxweberman.com" target="_blank" rel="noopener">Built by Max Weberman</a></footer>
+<script>
+const MEMOS=[{"date": "2026-10-12", "title": "Strategy Memo: Week Of Oct 12, 2026", "sub": "Prepared for Max Weberman \u00b7 Mon Oct 12, 2026 (ICT) \u00b7 First draft for format review", "sections": [{"title": "Top 3 Bets", "items": ["<strong>Clear The Money Sends (P0 Taxes First).<\/strong> Taxes are P0. The CPA hasn&#x27;t replied since your Oct 6 email with 11 files; send the follow-up tonight. Then the Steadily proof-of-insurance to Northpointe, DTE, and the Wickfield receipts. These have sat 6 to 10 days.", "<strong>One Home Platform Story By Nov 9.<\/strong> Smart, Vision, Up Keep and mnt. bot all work on the home maintenance idea. Put one lead on it so the SMART-S filing (target Nov 9), the Detroit beta and the deck tell one story.", "<strong>Finish Niko Strong.<\/strong> Register the Rinnai heaters today (only the name spelling is open). Then the site walk for Bryant (Nov 5) and the Home Guide install card, preview first."], "text": []}, {"title": "What To Stop", "items": ["Starting new seats and apps in the home-maintenance space until one lead owns it.", "Paid subscriber ads on YouTube until the organic vs paid split is in. Ad subs don&#x27;t count toward monetization.", "New design rounds (dream home, style decks) ahead of the sends that are waiting on you."], "text": []}, {"title": "Money At Risk", "items": ["<strong>$4,300<\/strong> Wickfield Jun\u2013Aug payment not found; dad&#x27;s check may be it (Prop, team sync Oct 11).", "<strong>$10k<\/strong> owed on Lenny&#x27;s $50k for 12.5%, no signed agreement yet (Folio, team sync Oct 11).", "<strong>$1,953<\/strong> Steadily policy not yet on record with Northpointe; lender force-place risk (open-tasks; brief Oct 12).", "<strong>$2,476.50<\/strong> Amex Business Platinum autopay due Oct 16, unconfirmed (Folio, team sync Oct 11).", "<strong>~$684k<\/strong> unidentified 2026 PNC wires; Next Insurance may have lapsed in July (Folio, team sync Oct 11).", "<strong>~$802/mo<\/strong> estimated subscriptions, $112.55 proven; cancel candidates Zillow $39.99, MW internet ~$45/mo (open-tasks).", "Bitcoin at 26.5% of a $89,580 book vs a 20% cap (Folio Sunday review, Oct 11)."], "text": []}, {"title": "Deadlines (Next 14 Days)", "items": ["<strong>Mon Oct 12:<\/strong> Rinnai registration (on Google Calendar; labor cutoff Nov 5). CPA follow-up (Taxes P0).", "<strong>Tue Oct 13:<\/strong> Amex Delta $83.26 autopay.", "<strong>Fri Oct 16:<\/strong> Amex Business Platinum $2,476.50. YouTube charter check-in.", "<strong>Sat Oct 24:<\/strong> Prop reminder for the Wickfield USPS ID check (due Oct 30).", "<strong>Mon Oct 26:<\/strong> Smart Upkeep Detroit beta opens (free).", "<strong>Just after:<\/strong> Thai company registration ~Oct 30; Bryant registration Nov 5; SMART-S filing Nov 9.", "Only Rinnai is on Google Calendar. The rest come from team files."], "text": []}, {"title": "Decisions Needed", "items": ["Rinnai owner spelling: Nikolaus or Nikolaos?", "Does Northpointe&#x27;s statement still show PO Box 690750, San Antonio TX 78269? Yes sends the Steadily request.", "Approve one lead for the home platform cell (Smart, per Coach)?", "Lenny&#x27;s 4 terms: sale/refi split, buyout, losses, when the $10k is due.", "Pause YouTube subscriber ads until the Studio split is in?"], "text": []}], "foot": "Sources: team-sync/2026-10-11, team-feed, open-tasks, briefs/2026-10-12, coach upgrade review 2026-10-12, research/2026-10-12, projects/decisions-2026-42, Google Calendar (Oct 12\u201326). Note: Tax Agent retired Oct 8; Folio now owns taxes."}];
+const $=id=>document.getElementById(id);
+const tc=s=>s.replace(/\b([a-z])([a-z']*)/g,(m,a,b,o,str)=>/^(a|an|the|and|or|of|to|in|on|for|at|by)$/.test(m)&&o>0?m:a.toUpperCase()+b);
+let memo, idx=0;
+const key=d=>'sm-picks-'+d;
+const load=d=>{try{return JSON.parse(localStorage.getItem(key(d)))||{}}catch(e){return{}}};
+const save=(d,v)=>localStorage.setItem(key(d),JSON.stringify(v));
+MEMOS.forEach((m,i)=>{const o=document.createElement('option');o.value=i;o.textContent=new Date(m.date+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+(i==0?' · Latest':'');$('pick').appendChild(o)});
+$('pick').onchange=e=>render(+e.target.value);
+function isDec(t){return /decision/i.test(t)}
+function render(i){
+  memo=MEMOS[i]; const st=load(memo.date);
+  $('title').textContent=tc(memo.title); $('sub').innerHTML=memo.sub; $('src').innerHTML=memo.foot;
+  $('track').innerHTML=''; $('tabs').innerHTML=''; $('dots').innerHTML='';
+  memo.sections.forEach((s,si)=>{
+    const sl=document.createElement('section'); sl.className='slide';
+    let h='<h2>'+tc(s.title)+'</h2><div class="count">'+(si+1)+' of '+memo.sections.length+'</div>';
+    if(isDec(s.title)){
+      h+='<ol class="dec">'+s.items.map((it,k)=>{const p=st[k]||{};return '<li class="card"><div class="q"><b>'+(k+1)+'.</b>'+it+'</div><div class="picks">'+
+      [['app','Approve'],['no','Not Now'],['ask','Ask Me']].map(([c,l])=>'<button class="btn mw-hover '+c+(p.pick==l?' on':'')+'" data-k="'+k+'" data-v="'+l+'">'+l+'</button>').join('')+
+      '</div><textarea data-k="'+k+'" placeholder="Notes (optional)" rows="1">'+(p.note||'').replace(/</g,'&lt;')+'</textarea></li>'}).join('')+'</ol>';
+    } else h+=(s.text.length?'<p>'+s.text.join(' ')+'</p>':'')+'<ul>'+s.items.map(x=>'<li>'+x+'</li>').join('')+'</ul>';
+    sl.innerHTML=h; $('track').appendChild(sl);
+    const t=document.createElement('button');t.className='tab mw-hover';t.textContent=tc(s.title);t.onclick=()=>go(si);$('tabs').appendChild(t);
+    const d=document.createElement('button');d.className='dot';d.setAttribute('aria-label','Slide '+(si+1));d.onclick=()=>go(si);$('dots').appendChild(d);
+  });
+  $('track').querySelectorAll('.picks .btn').forEach(b=>b.onclick=()=>{const s=load(memo.date),k=b.dataset.k;s[k]=s[k]||{};s[k].pick=s[k].pick==b.dataset.v?null:b.dataset.v;save(memo.date,s);
+    b.parentNode.querySelectorAll('.btn').forEach(x=>x.classList.toggle('on',x.dataset.v==s[k].pick))});
+  $('track').querySelectorAll('textarea').forEach(t=>t.oninput=()=>{const s=load(memo.date),k=t.dataset.k;s[k]=s[k]||{};s[k].note=t.value;save(memo.date,s)});
+  $('track').scrollLeft=0; idx=0; mark();
+}
+function go(i){idx=Math.max(0,Math.min(memo.sections.length-1,i));$('track').scrollTo({left:idx*($('track').clientWidth+16)});mark()}
+function mark(){[...$('dots').children].forEach((d,i)=>d.classList.toggle('on',i==idx));[...$('tabs').children].forEach((d,i)=>{d.classList.toggle('on',i==idx);if(i==idx)d.scrollIntoView({block:'nearest',inline:'nearest'})})}
+$('track').addEventListener('scroll',()=>{const n=Math.round($('track').scrollLeft/($('track').clientWidth+16));if(n!=idx){idx=n;mark()}},{passive:true});
+$('prev').onclick=()=>go(idx-1);$('next').onclick=()=>go(idx+1);
+document.addEventListener('keydown',e=>{if(e.target.tagName=='TEXTAREA')return;if(e.key=='ArrowLeft')go(idx-1);if(e.key=='ArrowRight')go(idx+1)});
+function text(){const s=load(memo.date),dec=memo.sections.find(x=>isDec(x.title));const strip=h=>{const d=document.createElement('div');d.innerHTML=h;return d.textContent};
+  let out='My picks, strategy memo '+memo.date+':\n';(dec?dec.items:[]).forEach((it,k)=>{const p=s[k]||{};out+='\n'+(k+1)+'. '+strip(it)+'\n→ '+(p.pick||'No pick')+(p.note?' · Note: '+p.note:'')+'\n'});return out}
+$('share').onclick=async()=>{const t=text();
+  if(navigator.share){try{await navigator.share({title:'My Strategy Memo Picks',text:t});return}catch(e){if(e.name=='AbortError')return}}
+  try{await navigator.clipboard.writeText(t);$('status').textContent='Picks copied. Paste into a text.'}catch(e){}
+  if(/iPhone|iPad|Android/i.test(navigator.userAgent))location.href='sms:?&body='+encodeURIComponent(t);
+};
+render(0);
+</script></body></html>
